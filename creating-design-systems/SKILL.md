@@ -38,6 +38,12 @@ Read actual source files — don't guess from file names.
 | Icon system | How icons are imported, sized, colored |
 | Toast/notification | Which library, how it's configured, how it's called |
 | Overlay usage | When dialog vs sheet vs popover vs tooltip |
+| Depth/elevation | Shadows vs background layering vs blur — how the project creates depth |
+| Glass/blur patterns | Grep for `backdrop-blur`, `bg-opacity`, `/40` — some apps use transparency as a design tool |
+| Gradients | Grep for `gradient`, `linear-gradient` — decorative moments, hero sections |
+| Text overflow | How long strings are handled — `truncate`, `line-clamp-*`, `max-w-[]` patterns |
+| Class composition | What utility the project uses for conditional classes (`cn`, `clsx`, `cva`, `tv`) |
+| Landing vs app UI | Some codebases have two visual registers — check if marketing pages use different fonts, spacing, or tone |
 
 ### What NOT to Read
 
@@ -136,6 +142,20 @@ See [DESIGN.md](./DESIGN.md) for the full design system guide.
 | Component-level docs | Architecture, registration steps, render logic | Design tokens (inherit from DESIGN.md) |
 
 If a code rules file has a Styling section, keep it to one line: "TailwindCSS exclusively — see DESIGN.md for tokens and patterns."
+
+### The Boundary Between Code Rules and Design System
+
+Some things feel like code standards but are actually design decisions. When in doubt: if it governs *how things look*, it's design system; if it governs *how code is written*, it's code rules.
+
+| Belongs in DESIGN.md | Belongs in code rules |
+|---|---|
+| `cn()` / `cva` usage patterns (class composition is a styling tool) | "Use `import type` for type-only imports" |
+| Card contract: `rounded-2xl bg-zinc-800 p-4` | "Named exports only, no default exports" |
+| Status color pattern: `bg-emerald-400/10 text-emerald-400` | "No `any` type — use `unknown` and narrow" |
+| "Never add borders to cards" | "TailwindCSS exclusively, no inline styles" |
+| Animation timing defaults | Import ordering rules |
+
+A common mistake is putting the card contract in the code rules file because it "looks like a coding pattern." It's a visual pattern — move it to the design system and point to it from code rules.
 
 ## Card/Surface Contract
 

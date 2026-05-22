@@ -76,6 +76,11 @@ ffmpeg -i score.raw.wav -af "\
 - **loudnorm**: target ~-14 LUFS for web playback.
 - **Fade**: short fade-in, ~1.6s fade-out timed to the tail (set `st` to runtime).
 
+### The fade-out MUST complete inside the audio's USED duration
+A fade-out only works if both the `afade` window AND the audio clip actually reach the end.
+- The `afade=t=out` window (`st` → `st + d`) must finish **within the audio file's playing duration in the timeline**, not in a tail that gets trimmed off. If the film cuts the audio clip at 56.0s but the fade starts at 56.7s, the viewer hears a **hard cut, not a fade**.
+- Make the **audio clip in the composition span the full fade** (its `data-duration` reaches past `st + d`), and render the master so its tail rings out under the final frame. Verify by listening to (or waveform-checking) the last 2s of the final render — confirm it tapers to silence, no abrupt stop.
+
 ## 6. SFX layer
 Layer subtle one-shots on **off-beats**, never fighting the downbeat cuts: a soft message/send pop on chat beats, a gentle notification one-shot on a proactive popup, a soft whoosh on a major transition. Keep them quiet — punctuation, not percussion.
 

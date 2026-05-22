@@ -34,19 +34,20 @@ Apple keynote energy: bright, minimal, fast, premium, confident. No voiceover. O
 - **Brand accent `<#hex>` — used ≤5 moments total.** Do not introduce a second blue.
 - Type: SF Pro Display / Inter. Mono: Anonymous Pro / `ui-monospace`. Soft Apple shadows, no heavy borders.
 
-## 6. Components to PORT (exact, never recreate)
-| Beat / use | Port this component (source path) |
+## 6. Components (pick from the reusable library; port real chrome where it exists)
+Choose per beat from the engine in `hyperframes-build.md` §4 — composer · chat panels · terminal · bar chart · notification card · search→browser morph · Text\* effects. If real product UI exists, PORT it exactly (never recreate); otherwise theme the library block.
+| Beat / use | Component (library block or source path to port) |
 |---|---|
-| <e.g. chat composer> | `<source>` |
-| <e.g. chat bubbles> | `<source>` |
-| <e.g. terminal> | `<source>` |
+| <beat> | <composer / chat panels / terminal / chart / card / morph / port source> |
+| <beat> | <…> |
+| <beat> | <…> |
 Text effects to use (distinct per scene): `<list the Text* effects>`.
 
 ## 7. Motion language
 Apple ease `cubic-bezier(0.16,1,0.3,1)`. One transform per element. Per-word text, distinct effect per scene, seamless overlap. Container morphs (geometry), not opacity fades. Hard cuts on downbeats; hero frames hold a bar.
 
 ## 8. Music
-`assets/score.mp3` — original, <N>s, 120 BPM, builds into the reveal at <T>s, resolves on the logo. Cut to `BEATGRID.md`. Subtle SFX on off-beats. **Fades out.**
+`assets/score.mp3` — original (fluidsynth + GM soundfont, MIDI as raw bytes), <N>s, 120 BPM, builds into the reveal at <T>s, resolves on the logo. Cool/modern instrumentation (Rhodes EP + warm pad + synth sub-bass + tasteful beat), NOT corporate piano. Cut to `BEATGRID.md`. Subtle SFX on off-beats. **Fades out — the fade must complete inside the audio's used duration (no hard cut).**
 
 ## 9. Hard constraints / do-nots
 - No voiceover. No overclaiming beyond §1. No benchmarks/competitors.
@@ -54,6 +55,6 @@ Apple ease `cubic-bezier(0.16,1,0.3,1)`. One transform per element. Per-word tex
 - Determinism: all motion seek-driven on `window.__timelines["main"]`. ~120px safe margins; `inspect` clean.
 
 ## 10. Definition of done
-- `lint` 0 errors, `inspect` 0 issues. 4K MP4 with score, ~<N>s. No dead frames on any downbeat.
+- `lint` 0 errors, `inspect` 0 issues. 4K MP4 rendered `-q high --crf 14` (verify bit_rate via `ffprobe` — not the ~1.8 Mbps default), score embedded + fades out, ~<N>s. No dead frames on any downbeat (verified on-frame).
 - Faithful ports (note approximations in `TRANSLATION_NOTES.md`). Passes UX + craft audits.
 - A first-time viewer gets the value in one watch and wants it.

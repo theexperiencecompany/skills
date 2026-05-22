@@ -16,15 +16,15 @@ The order matters. Each phase produces an artifact the next phase binds to.
 ---
 
 ## 1. Discovery
-Read the **real** thing you're launching — the feature, the PR, the actual shipped code. Do not invent capability. Pin down:
-- **What shipped** in one sentence (the "leap"). Ground every claim in real code.
+This skill takes **any product + any script**. Read the **real** thing you're launching — the product, the feature, the PR, the actual shipped code — AND the supplied script (if any). Do not invent capability. Pin down:
+- **What shipped / the script's claim** in one sentence (the "leap"). Ground every claim in real code/the script.
 - **Real capabilities** — an explicit list you will not exceed. No benchmarks, no competitors, no overclaiming.
 - **Audience** (devs / founders / power users / general).
 - **Platform & aspect** (16:9 1920×1080 is the default canvas; author here even for 4K).
-- **Length** (the worked film grew 40s → 50s → 56s as scope grew; start tight).
-- **Emotional truth** — the one feeling the film must deliver ("it actually does the thing and hands me the file").
+- **Length** (films tend to grow as scope grows — e.g. 40s → 50s → 56s across rounds; start tight).
+- **Emotional truth** — the one feeling the film must deliver.
 
-If real product UI exists (a web app, Remotion/motion-studio compositions), locate the source — you will port from it, not recreate it.
+If a script is provided, map each beat to a **component from the library** (`hyperframes-build.md` §4) and a **text effect**. If real product UI exists (a web app, Remotion compositions), locate the source — you will port from it, not recreate it.
 
 ## 2. Creative brief (north star)
 Write `CREATIVE_BRIEF.md` (skeleton in `templates/`). It is binding for every agent. It must contain:
@@ -67,7 +67,7 @@ Two auditors, in parallel:
 Consolidate into a `FIXES.md` (P0 = anything that breaks comprehension or the Apple feel — chiefly dead frames on downbeats). Apply fixes, then **re-verify frame-by-frame** before claiming done.
 
 ## 8. Render
-`npm run render` writes a **timestamped** file. Promote to a canonical filename with an explicit `cp`/`mv` — NEVER `rm` with a glob (see `pitfalls.md`). Confirm: 4K, correct duration, audio present.
+Render the 4K master near-lossless: `npm run render -- -q high --crf 14` (the default ~1.8 Mbps bands gradients). It writes a **timestamped** file. Promote to a canonical filename with explicit filenames — NEVER `rm` with a glob (see `pitfalls.md`). Confirm with `ffprobe`: 3840×2160, high bit_rate, correct duration, audio present, score fades out (last 2s taper to silence). YouTube re-encodes, so deliver a low-CRF master.
 
-## 9. Iterate
-Expect several user-feedback rounds. Each round: bump the brief version, re-grid if length changes, re-run the affected agents, re-audit, re-verify frames. Keep `.bak` copies of superseded versions (score, index, beatgrid) for reference, never delete blindly.
+## 9. Iterate (assume it, don't hope to avoid it)
+Apple-grade output takes iteration; treat each user note as a hard-won rule worth encoding back into the skill. Expect rounds on **centering, dead-frames-on-downbeats, exact-vs-approximate components, music vibe, dark-vs-light, sizing, and per-scene polish**. Each round: bump the brief version, re-grid if length changes, re-run the affected agents, re-audit, **re-verify EVERY change on-frame** (extract + view; measure with PIL / ffmpeg `signalstats`). Keep `.bak` copies of superseded versions (score, index, beatgrid), never delete blindly.

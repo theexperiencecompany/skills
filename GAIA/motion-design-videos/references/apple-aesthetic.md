@@ -56,13 +56,16 @@ Light-mode depth = soft shadows, not borders: `box-shadow: 0 1px 3px rgba(0,0,0,
 - **Optically center via full-canvas flex**, not guessed `top/left` offsets. A flex-centered full-canvas container is robust; absolute pixel offsets drift and read as "accidental."
 - Generous breathing room; ~120px safe margins; `inspect` must show no overflow/off-canvas.
 - Keep **authentic component proportions** — do not inflate `min-height` to "fill" space (it makes a composer look "too tall"). One idea per frame; ≤7 words per headline.
+- **Centering can be sabotaged by hidden bugs, not your layout.** `white-space: pre-wrap` + indented inner spans, or a hidden-but-in-flow placeholder (`visibility:hidden`/`autoAlpha:0`), make a correctly-centered container *look* off-center. Rule those out first (see `pitfalls.md` #1, #2).
+- **Readability is layout too:** any panel a viewer must READ (thread, card, stat) reaches full opacity and holds long enough to read (≥~1s). Don't pin payload content at half opacity or flash it (`pitfalls.md` #12).
 
 ## 6. Motion language
 - Apple ease `cubic-bezier(0.16,1,0.3,1)` is the default for nearly everything.
 - **One transform per element**, physical and weighted. No lazy fades — every text change is a *designed* transition (mask/clip reveal, blur-to-focus, per-word stagger, kinetic build, shared-axis swap).
 - **Per-word** text animation with a **distinct effect per scene**, and **seamless overlap**: the outgoing line blurs/lifts as the incoming resolves. Never a whole-sentence cross-fade.
 - Hard act-cuts on downbeats (0,2,4,…); inner swaps may land on half-beats for energy; hold hero frames a full bar so big moments breathe.
-- **Container morphs (geometry), not opacity fades or image scaling.** A search bar that becomes a browser window is the *same element* reshaping (width/height/radius/position), not a cross-dissolve between two pictures.
+- **Container morphs (geometry), not opacity fades or image scaling.** A search bar that becomes a browser window is the *same element* reshaping (width/height/radius/position) — the growing container *reveals* a STATIC destination image underneath; never cross-dissolve two pictures and never `scale()` the image (it blurs/distorts). See `hyperframes-build.md` §6.
+- A click can motivate a cut: a cursor travels to a button, click feedback (scale-down + ring pulse), then the next beat fires — see the cursor-click pattern in `hyperframes-build.md` §7.
 
 ## 7. Depth & effects
 Subtle glassmorphism, gentle bevel, very subtle drop shadows. Premium, never heavy. No grid/dot backgrounds, no glows/blooms behind logos (a clean lockup on white reads more premium than a glowing one).

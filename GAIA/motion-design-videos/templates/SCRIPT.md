@@ -9,8 +9,9 @@
 - Brand accent `<#hex>` — **≤5 hits total** (ledger them in the review). One transform per element.
 - Type: Inter. Apple ease `cubic-bezier(0.16,1,0.3,1)`. Optically center every type beat.
 
-## Effect vocabulary (port these exact components, re-theme)
-Components: `<list>`. Text effects (distinct per scene): `<TextMaskRevealUp · TextFocusBlurResolve · …>`.
+## Effect vocabulary (reusable library — `hyperframes-build.md` §4)
+Components: composer · chat panels · terminal · bar chart · notification card · search→browser morph (pick per beat; port real chrome where it exists).
+Text effects (distinct per scene): `<TextMaskRevealUp · TextFocusBlurResolve · TextPerCharacterRise · …>`.
 
 ## Beat sheet
 Each beat: **time window · on-screen copy (≤7 words, every word legible ≥0.4s) · text effect · component · accuracy note (cite real code)**.

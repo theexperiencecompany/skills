@@ -16,6 +16,7 @@ npx skills add theexperiencecompany/<skill-name>
 | `gaia-video-animations` | Create high-quality Remotion video animations for product commercials — covers scene architecture, 12 animation patterns, typography, sound design, and aesthetic rules derived from 72 production sessions | `npx skills add theexperiencecompany/gaia-video-animations` |
 | `accurate-testing` | Write test cases that catch real bugs instead of producing false confidence — covers pytest, vitest/jest, anti-patterns, and the deletion test | `npx skills add theexperiencecompany/accurate-testing` |
 | `creating-design-systems` | Reverse-engineer a codebase's visual language into a practical DESIGN.md — covers analysis methodology, document structure, refinement loop, and the card contract pattern | `npx skills add theexperiencecompany/creating-design-systems` |
+| `GAIA/motion-design-videos` | Produce an Apple-keynote-quality motion-design launch film — kinetic typography + real product UI, original score, 4K — in HyperFrames. Covers the full pipeline: binding brief, beat grid, agent team, faithful component porting, the Apple palette, the fluidsynth music pipeline, 4K export, frame-by-frame verification, and the hard-won pitfalls | `npx skills add theexperiencecompany/GAIA/motion-design-videos` |
 
 ## About this repo
 

@@ -37,6 +37,7 @@ Write `BEATGRID.md` before the script. The music grid is the edit's skeleton.
 Find a cleanly-licensed, professionally-produced track with the right vibe.
 - **Pixabay** — free for commercial use, no attribution required. Best default.
 - **Uppbeat**, **Free Music Archive (FMA)** — alternatives (check each track's exact license; some need attribution).
+- **YouTube Audio Library** (studio.youtube.com → Audio Library) — Google's catalogue of tracks free to use, each tagged either "No attribution required" or with a required attribution string. The most **Content-ID-safe** option for a YouTube upload. Download is gated behind YouTube Studio login (usually a manual download → drop the mp3 into `assets/`). To pull a track that lives at a YouTube URL, see §3b.
 - **Search terms** that land the Apple-keynote-launch energy: *cinematic electronica · dynamic electronic · tech · energetic · synth · driving · uplifting electronic*. You want a track that **builds then drops** — that maps onto the build→reveal structure.
 - **Record provenance:** save the source URL + license to a project `CREDITS.md` (or a note in the brief) so attribution/licensing is traceable — important for YouTube's Content ID.
 
@@ -62,6 +63,19 @@ Verify it's a real audio file, not an HTML error page:
 file track.mp3            # expect: audio/mpeg / MPEG ADTS
 ffprobe track.mp3         # expect a real duration + audio stream
 ```
+
+## 3b. Download from YouTube (yt-dlp) — license-gated
+For a track that lives at a YouTube URL (the YouTube Audio Library, a genuine Creative-Commons track, or an artist who explicitly permits use), extract the audio with `yt-dlp`:
+```bash
+yt-dlp -x --audio-format mp3 --audio-quality 0 -o "track.%(ext)s" "<youtube url>"
+```
+**Licensing is on you — verify BEFORE using:**
+- ✅ **YouTube Audio Library** tracks (free to use; honour the per-track "attribution required" flag) and real **Creative Commons** tracks (give the required credit) are safe.
+- ⚠️ "No Copyright" / "royalty-free" upload channels (NCS-style) are only as trustworthy as the uploader — read their stated terms; many require crediting the channel **and** the track.
+- ❌ Never rip commercial/copyrighted music — it gets **Content-ID claimed or muted** on upload.
+- Record the source URL + exact license + any required attribution in `CREDITS.md`, and put the attribution in the video description when the license demands it.
+
+Pixabay (§3) and the Audio Library are the least-ambiguous picks — prefer them when in doubt. Verify any download is real audio with `file` / `ffprobe` as in §3.
 
 ## 4. Beat-match the track to the edit (offset the drop)
 Align the track's **drop** to the film's hero beat (the reveal downbeat, e.g. 16.0s).

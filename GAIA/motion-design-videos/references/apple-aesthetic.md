@@ -16,7 +16,7 @@ Evaluate EVERY scene against this. It is the craft auditor's checklist. Restrain
 
 ## 1. Principles (the eight)
 1. **Color** — clean backgrounds only: white / `#F5F5F7` / light gray `#E5E5EA`. No loud or saturated washes. No dark layering for depth in light mode.
-2. **Typography** — SF Pro Display (Inter is the accepted alternative). Bold headlines, Regular/Medium body. Tight tracking on display sizes.
+2. **Typography** — one font stack, `font-family: "SF Pro Display", "Inter", system-ui` (SF Pro Display primary; Inter is the documented fallback, and the default on non-Apple platforms where SF Pro isn't licensed/available). Bold headlines, Regular/Medium body. Tight tracking on display sizes. See §4.
 3. **Layout & spacing** — intentional, **centered** layouts with generous breathing room (~120px safe margins). Nothing cramped, nothing accidental.
 4. **Motion** — **subtle, quick, smooth.** No flashy or dramatic moves. Apple ease `cubic-bezier(0.16,1,0.3,1)` everywhere.
 5. **UI components** — rounded-corner panels/cards that **morph between shapes via keyframed geometry, not opacity fades or image scaling.**
@@ -48,7 +48,7 @@ Light-mode depth = soft shadows, not borders: `box-shadow: 0 1px 3px rgba(0,0,0,
 - Body copy is never accent-colored on white (contrast). Accent only as fills or large display words with enough weight.
 
 ## 4. Typography
-- One family (Inter) everywhere. Weights: 300 for big elegant lines, 400/500 UI, 600/700/800 punch. Mono = Anonymous Pro / `ui-monospace` for terminals + filenames.
+- One font stack everywhere: `font-family: "SF Pro Display", "Inter", system-ui` — SF Pro Display is the primary (the Apple face); Inter is the documented fallback and the default on non-Apple platforms (where SF Pro isn't bundled). Pick one and apply it to every text element via this stack; do not mix two display faces. Weights: 300 for big elegant lines, 400/500 UI, 600/700/800 punch. Mono = Anonymous Pro / `ui-monospace` for terminals + filenames.
 - Tighten display type: `letter-spacing: -0.03em` and tighter at large sizes. Display headlines ~96–132px, `line-height` ~1.05; subtitle ~38px, weight 400.
 - No italics, no serif (at most one editorial-serif hero line, and default to sans).
 

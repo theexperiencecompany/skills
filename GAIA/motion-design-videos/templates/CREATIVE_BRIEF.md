@@ -36,11 +36,13 @@ Apple keynote energy: bright, minimal, fast, premium, confident. No voiceover. A
 
 ## 6. Components (pick from the reusable library; port real chrome where it exists)
 Choose per beat from the engine in `hyperframes-build.md` §4 — composer · chat panels · terminal · bar chart · notification card · search→browser morph · Text\* effects. If real product UI exists, PORT it exactly (never recreate); otherwise theme the library block.
+
 | Beat / use | Component (library block or source path to port) |
 |---|---|
 | <beat> | <composer / chat panels / terminal / chart / card / morph / port source> |
 | <beat> | <…> |
 | <beat> | <…> |
+
 Text effects to use (distinct per scene): `<list the Text* effects>`.
 
 ## 7. Motion language

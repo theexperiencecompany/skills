@@ -26,7 +26,7 @@ The components below are the **reusable engine** — they are NOT specific to an
 - Audio is a `<clip>`/`<audio>` element; the **audio clip must span the score's full fade-out** (see `music-pipeline.md`) or the end hard-cuts.
 
 ## 2. Project structure
-```
+```text
 index.html                    # root composition (the assembled film)
 compositions/*.html           # sub-components (composer, chat, terminal, chart, card, morph)
 compositions/text-effects.js  # the Text* effect library (HFText.*)

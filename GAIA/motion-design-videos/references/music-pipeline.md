@@ -108,6 +108,7 @@ Use this ONLY if no real track can be sourced. It sounds noticeably worse — la
 - Author a MIDI arrangement (you can write the MIDI **as raw bytes** to avoid a `mido` dependency: `MThd` header + one `MTrk` per instrument, events as `<delta-varlen><event>`, tempo `FF 51 03`, notes `9n/8n`, VLQ delta times; align chord changes + the reveal hit to downbeats).
 - Render: `fluidsynth -ni -F score.raw.wav -r 48000 -g 1.0 FluidR3_GM.sf2 arrangement.mid`.
 - Prefer cool/modern instrument programs (Rhodes EP, warm pad, synth sub-bass, restrained beat) over solo piano, then master + fade per §5. Even so, expect this to read as "elevator music" next to a produced track — it's a stopgap.
+- **FluidR3_GM.sf2 license:** MIT-licensed — commercial use, modification, and redistribution are permitted, but the rendered audio you author from it is yours; the soundfont's own MIT copyright + permission notice must be retained in any copy/substantial portion you redistribute (e.g. if you bundle the `.sf2`, ship its accompanying copyright/README per the Fluid/KeyMusician packaging). Don't claim the soundfont itself is "no-attribution" — keep its license/README with any distributed bundle.
 
 ## Royalty / licensing
 A cleanly-licensed real track (Pixabay free-commercial, or a properly-attributed FMA/Uppbeat track) is royalty-free for the film. Always record source + license in `CREDITS.md`. Keep `.bak` copies of superseded score versions; never delete blindly.

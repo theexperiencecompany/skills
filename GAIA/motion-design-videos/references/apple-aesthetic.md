@@ -22,7 +22,7 @@ Evaluate EVERY scene against this. It is the craft auditor's checklist. Restrain
 5. **UI components** — rounded-corner panels/cards that **morph between shapes via keyframed geometry, not opacity fades or image scaling.**
 6. **Text animation** — position + opacity **per word** (per-char for accent), slide-up / blur reveals. A **distinct effect per scene**, **seamlessly overlapping** (no whole-sentence fades).
 7. **Depth/effects** — subtle: glassmorphism (blur + faint white border), gentle bevel, very subtle drop shadows. Premium, never heavy.
-8. **Sound** — original score + subtle off-beat SFX make it feel alive. Music **fades out** at the end.
+8. **Sound** — a real, beat-matched music track + subtle off-beat SFX make it feel alive. Music **fades out** at the end.
 
 ## 2. The exact palette (binding color roles)
 

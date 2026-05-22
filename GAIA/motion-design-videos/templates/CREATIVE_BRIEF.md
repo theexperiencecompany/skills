@@ -26,7 +26,7 @@ Emotional truth: *"<the one feeling the film delivers>."*
 - First **3s** must stop the scroll; last **4s** = a clean, screenshot-able logo.
 
 ## 4. Tone & references
-Apple keynote energy: bright, minimal, fast, premium, confident. No voiceover. Original score carries emotion; subtle off-beat SFX punctuate cuts. References: Apple product-page films, Linear/Vercel launch films. **Restraint is the aesthetic.**
+Apple keynote energy: bright, minimal, fast, premium, confident. No voiceover. A real music track carries emotion; subtle off-beat SFX punctuate cuts. References: Apple product-page films, Linear/Vercel launch films. **Restraint is the aesthetic.**
 
 ## 5. Brand system (see the skill's apple-aesthetic.md for the full palette)
 - Page BG `#FFFFFF` / `#F5F5F7`. Ink `#1C1C1E`, secondary `#3A3A3C`, muted `#8E8E93`, cards `#E5E5EA`.
@@ -47,7 +47,7 @@ Text effects to use (distinct per scene): `<list the Text* effects>`.
 Apple ease `cubic-bezier(0.16,1,0.3,1)`. One transform per element. Per-word text, distinct effect per scene, seamless overlap. Container morphs (geometry), not opacity fades. Hard cuts on downbeats; hero frames hold a bar.
 
 ## 8. Music
-`assets/score.mp3` — original (fluidsynth + GM soundfont, MIDI as raw bytes), <N>s, 120 BPM, builds into the reveal at <T>s, resolves on the logo. Cool/modern instrumentation (Rhodes EP + warm pad + synth sub-bass + tasteful beat), NOT corporate piano. Cut to `BEATGRID.md`. Subtle SFX on off-beats. **Fades out — the fade must complete inside the audio's used duration (no hard cut).**
+`assets/score.mp3` — a **REAL, cleanly-licensed royalty-free track** (Pixabay free-commercial / Uppbeat / FMA), vibe `<cinematic electronica / dynamic electronic / tech / energetic synth>`, <N>s. **Beat-match its drop to the reveal at <T>s** (offset the track). Cut to `BEATGRID.md`. Record source + license in `CREDITS.md`. Subtle SFX on off-beats (mixed via re-mux). **Fades out — the fade must complete inside the audio's used duration (no hard cut).** Do NOT synthesize (fluidsynth is a last resort only — sounds like corporate elevator music).
 
 ## 9. Hard constraints / do-nots
 - No voiceover. No overclaiming beyond §1. No benchmarks/competitors.

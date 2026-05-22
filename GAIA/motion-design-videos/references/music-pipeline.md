@@ -1,88 +1,113 @@
-# Music pipeline — beat grid + original score
+# Music pipeline — beat grid + scoring
 
-The film is scored to an **original** track rendered from a MIDI arrangement through real sampled instruments, then mastered. This reads dramatically better than additive synthesis or a generic "corporate piano."
+The score makes or breaks the film. **Source a REAL, professionally-produced royalty-free track** — that is the primary approach. Synthesizing your own from MIDI is a last resort only.
+
+> **Hard-won correction:** synthesized / GM-soundfont music (fluidsynth + FluidR3 GM) sounds like **cheap, dated "corporate elevator music"** and was rejected in practice. A real, produced track is night-and-day better. Do NOT default to synthesis. Synthesis is the §7 fallback for when no track can be sourced at all.
 
 ## Table of contents
 1. The beat grid (lock this first)
-2. Why a real soundfont, not synthesis
-3. Generating MIDI as raw bytes
-4. Rendering with fluidsynth
-5. Mastering with ffmpeg
-6. SFX layer
-7. Royalty / licensing
+2. Source a real track (PRIMARY)
+3. Download past Cloudflare (Pixabay)
+4. Beat-match the track to the edit (offset the drop)
+5. Trim + fade
+6. Audio swap WITHOUT re-rendering (re-mux)
+7. SFX layer
+8. Last resort only — synthesize from MIDI (fluidsynth)
 
 ---
 
 ## 1. The beat grid (lock this FIRST — drives the script)
 Write `BEATGRID.md` before the script. The music grid is the edit's skeleton.
-- **Tempo 120 BPM** → **beat = 0.5s**, **bar (4/4) = 2.0s**.
+- **Tempo 120 BPM** → **beat = 0.5s**, **bar (4/4) = 2.0s** (use the chosen track's actual tempo if it differs; the principle is "cut on its downbeats").
 - List every **downbeat**: 0, 2, 4, … to the end. **Hard transitions cut on downbeats.**
-- Divide runtime into **phrases/acts** with energy notes. The worked film's arc:
+- Divide runtime into **phrases/acts** with energy notes. A typical arc:
   1. Intro / hook (intimate)
-  2. Build / ask (bass + pads enter)
-  3. **REVEAL — soar** (melody + octave, swell) — the detonation lands exactly on a downbeat (16.0s in the example)
-  4. Impressive (driving arpeggio + bass)
+  2. Build / ask (energy enters)
+  3. **REVEAL — drop/soar** — the detonation lands exactly on a downbeat (e.g. 16.0s)
+  4. Impressive (driving)
   5. Proactive / platforms (sustained drive)
   6. Payoff (pullback, tender)
-  7. Logo (full warm chord)
-  8. CTA / morph (gentle rise → final bright resolve chord)
+  7. Logo (full chord)
+  8. CTA / morph (gentle rise → final resolve)
 - **Hero frames hold a full bar (2s); montage hits land on half-beats.**
-- The audio file is slightly **longer than the edit** so reverb/instrument tails ring out under the final frame.
-- Master fades: ~0.25s in, ~1.6s **fade-out** at the end. Always fade out.
+- The audio should run slightly **longer than the edit** so the tail rings out under the final frame.
+- Always **fade out** (~1–1.6s) and the fade must complete inside the used duration (§5).
 
-## 2. Why a real soundfont, not synthesis
-Render a MIDI arrangement through **fluidsynth + a real General MIDI soundfont (FluidR3_GM.sf2)** → true sampled instruments. Do NOT use additive/oscillator synthesis, and avoid the generic solo-piano "corporate" sound. Cool/modern instrumentation reads far more premium:
-- **Rhodes electric piano** (warm, modern) as the melodic bed
-- a **warm synth pad** for swell/sustain
-- a **synth sub-bass** for weight
-- a **tasteful, restrained electronic beat** (soft kick + hat on the grid)
+## 2. Source a real track (PRIMARY)
+Find a cleanly-licensed, professionally-produced track with the right vibe.
+- **Pixabay** — free for commercial use, no attribution required. Best default.
+- **Uppbeat**, **Free Music Archive (FMA)** — alternatives (check each track's exact license; some need attribution).
+- **Search terms** that land the Apple-keynote-launch energy: *cinematic electronica · dynamic electronic · tech · energetic · synth · driving · uplifting electronic*. You want a track that **builds then drops** — that maps onto the build→reveal structure.
+- **Record provenance:** save the source URL + license to a project `CREDITS.md` (or a note in the brief) so attribution/licensing is traceable — important for YouTube's Content ID.
 
-Map these to GM program numbers (e.g. Rhodes EP ≈ program 4, warm pad ≈ 89, synth bass ≈ 38, drums on MIDI channel 10).
-
-## 3. Generating MIDI as raw bytes (no `mido` dependency)
-Write the MIDI file **as raw bytes** in a small script — no third-party MIDI library required, so it runs anywhere. Structure:
-- **Header chunk** `MThd`: format 1, ntracks, division = ticks-per-quarter (e.g. 480).
-- One **track chunk** `MTrk` per instrument, each a sequence of `<delta-varlen><event>`:
-  - tempo meta (`FF 51 03 <usec-per-quarter>`; 120 BPM = 500000)
-  - program change (`Cn pp`)
-  - note on / note off (`9n kk vv` / `8n kk 00`), delta times in ticks from the grid
-  - end-of-track (`FF 2F 00`)
-- Delta times use **variable-length quantity** encoding (7 bits/byte, high bit = continuation).
-- Compute note start/length in ticks from the beat grid: `ticks = beats * division`. Place chord changes and the reveal hit on exact downbeats so the audio aligns to the cut grid.
-
-Keep the arrangement deterministic and grid-aligned — the cuts depend on it.
-
-## 4. Rendering with fluidsynth
+## 3. Download past Cloudflare (Pixabay)
+Pixabay is Cloudflare-protected, so plain `curl` / `yt-dlp` get **403**. Bypass with browser impersonation:
 ```bash
-fluidsynth -ni -F score.raw.wav -r 48000 -g 1.0 FluidR3_GM.sf2 arrangement.mid
+pip install --user yt-dlp curl_cffi
 ```
-`-ni` no shell/no MIDI-in, `-F` render to file, `-r` sample rate, `-g` gain. Produces a dry WAV.
+```python
+import re
+from curl_cffi import requests
 
-## 5. Mastering with ffmpeg
-Apply, in this order, a warm/glued master and **always a fade-out**:
+PAGE = "<track page url>"
+r = requests.get(PAGE, impersonate="chrome")
+# the real CDN mp3 url is embedded in the page HTML
+m = re.search(r'https://cdn\.pixabay\.com/(?:download/)?audio/[^"\\ ]+\.mp3', r.text)
+cdn = m.group(0)
+audio = requests.get(cdn, impersonate="chrome")           # impersonate again for the CDN
+open("track.mp3", "wb").write(audio.content)
+```
+Verify it's a real audio file, not an HTML error page:
 ```bash
-ffmpeg -i score.raw.wav -af "\
-  equalizer=f=120:t=q:w=1:g=2,\
-  equalizer=f=8000:t=q:w=1:g=1.5,\
-  acompressor=threshold=-18dB:ratio=2.5:attack=20:release=250,\
-  aecho=0.8:0.85:60:0.18,\
-  loudnorm=I=-14:TP=-1.5:LRA=11,\
-  afade=t=in:st=0:d=0.25,afade=t=out:st=56.7:d=1.6" \
+file track.mp3            # expect: audio/mpeg / MPEG ADTS
+ffprobe track.mp3         # expect a real duration + audio stream
+```
+
+## 4. Beat-match the track to the edit (offset the drop)
+Align the track's **drop** to the film's hero beat (the reveal downbeat, e.g. 16.0s).
+- Decode to wav and compute an **RMS energy envelope** (numpy/scipy), then find the **drop** = the first large, sustained energy rise.
+  ```python
+  import numpy as np, soundfile as sf
+  y, sr = sf.read("track.wav", always_2d=True); y = y.mean(axis=1)
+  win = int(0.1 * sr)                                  # 100ms windows
+  rms = np.sqrt(np.convolve(y**2, np.ones(win)/win, "same"))
+  # drop ≈ first index where smoothed rms jumps and stays high
+  ```
+- **Offset** the track (skip `N` seconds) so the drop lands exactly on the hero beat: `offset = drop_time − hero_beat` (e.g. drop at 18.2s, hero beat 16.0s → start the track 2.2s in). Most electronic tracks build ~16s then drop, which maps naturally onto build→reveal.
+- Verify the energy arc after offsetting: quiet intro → loud after the drop → fade. A quick RMS plot/check confirms it.
+
+## 5. Trim + fade
+Trim to the edit length and master lightly (loudness + a fade). Keep processing minimal on an already-produced track — mostly just level + fade:
+```bash
+ffmpeg -ss <offset> -i track.mp3 -t <edit_len+tail> \
+  -af "loudnorm=I=-14:TP=-1.5:LRA=11,afade=t=in:st=0:d=0.25,afade=t=out:st=<edit_len-1.6>:d=1.6" \
   -ar 48000 score.mp3
 ```
-- **Warm EQ**: low-shelf/bell lift ~120Hz for body, a touch of air ~8kHz.
-- **Glue compression**: gentle (ratio ~2.5, slow-ish attack) to bind the mix.
-- **Light reverb** (`aecho` or `aresample`+`afir`/`aecho`): a small hall, not a cathedral.
-- **loudnorm**: target ~-14 LUFS for web playback.
-- **Fade**: short fade-in, ~1.6s fade-out timed to the tail (set `st` to runtime).
+**The fade-out MUST complete inside the audio's USED duration.** The `afade=t=out` window (`st`→`st+d`) must finish within the audio's playing duration in the timeline, not a trimmed-off tail — otherwise the viewer hears a **hard cut, not a fade**. Make the composition's audio clip `data-duration` span past `st+d`. Verify by waveform-checking (or listening to) the last 2s of the final render: it should taper to silence.
 
-### The fade-out MUST complete inside the audio's USED duration
-A fade-out only works if both the `afade` window AND the audio clip actually reach the end.
-- The `afade=t=out` window (`st` → `st + d`) must finish **within the audio file's playing duration in the timeline**, not in a tail that gets trimmed off. If the film cuts the audio clip at 56.0s but the fade starts at 56.7s, the viewer hears a **hard cut, not a fade**.
-- Make the **audio clip in the composition span the full fade** (its `data-duration` reaches past `st + d`), and render the master so its tail rings out under the final frame. Verify by listening to (or waveform-checking) the last 2s of the final render — confirm it tapers to silence, no abrupt stop.
+## 6. Audio swap WITHOUT re-rendering (re-mux)
+When ONLY the audio changes (new track, SFX tweak), do **NOT** re-render the frames — re-mux. This preserves the pristine high-bitrate video and takes ~1s instead of a 20-min re-render.
+```bash
+ffmpeg -i video.mp4 -i score.mp3 -i sfx.mp3 \
+  -filter_complex "\
+    [2]asplit=N[s0][s1]...; \
+    [s0]adelay=<ms0>:all=1,volume=<v0>[d0]; \
+    [s1]adelay=<ms1>:all=1,volume=<v1>[d1]; ... \
+    [1][d0][d1]...amix=inputs=N+1:normalize=0,alimiter=limit=0.97[aout]" \
+  -map 0:v:0 -map "[aout]" -c:v copy -c:a aac -b:a 256k -shortest out.mp4
+```
+- `-c:v copy` keeps the video untouched (no quality loss, no re-encode).
+- One delayed/volumed branch per SFX hit; `amix` blends them with the music; `alimiter` catches peaks.
+- The **SFX schedule** (which one-shot fires when, and how loud) comes from the `<audio>` elements' `data-start` / `data-volume` in `index.html` — translate each to an `adelay` (ms) + `volume`.
 
-## 6. SFX layer
-Layer subtle one-shots on **off-beats**, never fighting the downbeat cuts: a soft message/send pop on chat beats, a gentle notification one-shot on a proactive popup, a soft whoosh on a major transition. Keep them quiet — punctuation, not percussion.
+## 7. SFX layer
+Layer subtle one-shots on **off-beats**, never fighting the downbeat cuts: a soft message/send pop on chat beats, a gentle notification one-shot on a proactive popup, a soft whoosh on a major transition. Quiet — punctuation, not percussion. Mix them via the re-mux (§6) so SFX tweaks never trigger a frame re-render.
 
-## 7. Royalty / licensing
-Original composition + a freely-licensed soundfont (FluidR3 GM) = royalty-free. Keep `.bak` copies of superseded score versions for reference; never delete blindly.
+## 8. Last resort only — synthesize from MIDI (fluidsynth)
+Use this ONLY if no real track can be sourced. It sounds noticeably worse — label it as a placeholder and replace it with a real track before shipping.
+- Author a MIDI arrangement (you can write the MIDI **as raw bytes** to avoid a `mido` dependency: `MThd` header + one `MTrk` per instrument, events as `<delta-varlen><event>`, tempo `FF 51 03`, notes `9n/8n`, VLQ delta times; align chord changes + the reveal hit to downbeats).
+- Render: `fluidsynth -ni -F score.raw.wav -r 48000 -g 1.0 FluidR3_GM.sf2 arrangement.mid`.
+- Prefer cool/modern instrument programs (Rhodes EP, warm pad, synth sub-bass, restrained beat) over solo piano, then master + fade per §5. Even so, expect this to read as "elevator music" next to a produced track — it's a stopgap.
+
+## Royalty / licensing
+A cleanly-licensed real track (Pixabay free-commercial, or a properly-attributed FMA/Uppbeat track) is royalty-free for the film. Always record source + license in `CREDITS.md`. Keep `.bak` copies of superseded score versions; never delete blindly.

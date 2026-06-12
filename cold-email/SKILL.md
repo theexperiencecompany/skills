@@ -1,13 +1,16 @@
 ---
 name: cold-email
 description: >
-  Write cold outreach emails and multi-touch sequences that convert without feeling spammy.
+  Write cold outreach emails and multi-touch sequences that convert without feeling spammy — for
+  customers AND for founder asks (raising an angel round, asking for intros or advice).
   Use when drafting cold email to strangers, a reactivation/winback sequence, a founder-to-user
-  note, a product launch blast, or any outbound email where the recipient doesn't already know you.
-  Triggers on: "write a cold email", "cold outreach", "email sequence", "drip campaign", "reactivation
-  email", "winback", "launch email", "convert signups", "this email feels too salesy/AI/spammy",
-  "make this sound human". Covers the voice rules that kill the "AI wrote this" tell, subject lines,
-  the 5-line structure, multi-email sequencing, CTAs, and the discount/offer framing.
+  note, a product launch blast, an investor/fundraising email, or any outbound email where the
+  recipient doesn't already know you. Triggers on: "write a cold email", "cold outreach", "email
+  sequence", "drip campaign", "reactivation email", "winback", "launch email", "convert signups",
+  "raise email", "angel investor email", "ask for an intro", "this email feels too salesy/AI/spammy",
+  "make this sound human / like a founder". Covers the voice rules that kill the "AI wrote this" tell,
+  subject lines, the 5-line structure, multi-email sequencing, CTAs, discount/offer framing, and the
+  founder-ask variant (traction-first, ask-for-help-not-money).
 ---
 
 # Cold Email
@@ -120,6 +123,15 @@ news rebuilds the relationship before you ask for anything.
 Lead with the outcome for them, not the thing you built. Not "look what we shipped" but "this saves
 your team five hours a week." First-person *you*, not first-person *I*. Even a founder story converts
 by what it does for the reader, not by how it felt to the founder.
+
+## Founder asks (raising, intros, advice)
+
+When the ask is "help me" instead of "buy this" — an angel raise, an intro, advice from someone you
+admire — the discipline is the same (plain text, human, no marketing chrome) but the center of
+gravity moves: lead with **traction not the problem**, ask for **a 20-minute conversation not a
+check**, make it genuinely 1:1, and follow up with **news not a nudge**. See
+`references/founder-asks.md` for the full principles, an annotated 3-email angel-raise thread, and
+the forwardable warm-intro blurb.
 
 ## A note on personalization & deliverability
 

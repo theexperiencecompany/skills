@@ -13,6 +13,7 @@ npx skills add theexperiencecompany/<skill-name>
 | Skill | Description | Install |
 |-------|-------------|---------|
 | `gaia-ui` | Design language and visual conventions for building GAIA UI components | `npx skills add theexperiencecompany/gaia-ui` |
+| `gaia-imessage-demos` | Write and produce GAIA iMessage demo videos — the founder's voice rules, a state-ledger logic audit that catches continuity errors before rendering, a multi-agent scoring loop, and the Keyloom/Remotion production spec | `npx skills add theexperiencecompany/gaia-imessage-demos` |
 | `gaia-video-animations` | Create high-quality Remotion video animations for product commercials — covers scene architecture, 12 animation patterns, typography, sound design, and aesthetic rules derived from 72 production sessions | `npx skills add theexperiencecompany/gaia-video-animations` |
 | `accurate-testing` | Write test cases that catch real bugs instead of producing false confidence — covers pytest, vitest/jest, anti-patterns, and the deletion test | `npx skills add theexperiencecompany/accurate-testing` |
 | `creating-design-systems` | Reverse-engineer a codebase's visual language into a practical DESIGN.md — covers analysis methodology, document structure, refinement loop, and the card contract pattern | `npx skills add theexperiencecompany/creating-design-systems` |

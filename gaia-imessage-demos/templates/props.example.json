@@ -1,0 +1,75 @@
+{
+  "contactName": "GAIA",
+  "contactAvatar": "avatars/gaia-avatar.webp",
+  "layout": "fullscreen",
+  "sounds": true,
+  "clipTheme": "ios26",
+  "beats": [
+    {
+      "id": "i1",
+      "day": "Mon, Nov 2",
+      "time": "6:02 AM",
+      "images": ["briefing/airmail.png"],
+      "aspect": 1.0367,
+      "hold": 2.6
+    },
+    {
+      "id": "g1",
+      "from": "gaia",
+      "chain": true,
+      "text": "Morning, Aryan. The Northline call moved to 3, so I moved your 2pm. Your accountant needs the receipts by Friday."
+    },
+    {
+      "id": "u1",
+      "from": "user",
+      "text": "Morning. Did the receipts go out?"
+    },
+    {
+      "id": "g2",
+      "from": "gaia",
+      "think": 1.4,
+      "text": "Yes. I sent them from your Downloads folder last night."
+    },
+    {
+      "id": "u2",
+      "from": "user",
+      "text": "Good. What does Northline need?"
+    },
+    {
+      "id": "g3",
+      "from": "gaia",
+      "think": 1.8,
+      "text": "A demo and last quarter's numbers. I can put both on one page."
+    },
+    {
+      "id": "u3",
+      "from": "user",
+      "text": "Send it over."
+    },
+    {
+      "id": "r1",
+      "react": "u3",
+      "by": "gaia",
+      "emoji": "👍"
+    },
+    {
+      "id": "l1",
+      "link": {
+        "url": "https://heygaia.link/northline-brief",
+        "title": "Northline meeting brief",
+        "domain": "heygaia.link"
+      },
+      "hold": 1.8
+    },
+    {
+      "id": "g4",
+      "from": "gaia",
+      "think": 0.8,
+      "text": "Sent."
+    },
+    {
+      "id": "p1",
+      "pause": 1.6
+    }
+  ]
+}

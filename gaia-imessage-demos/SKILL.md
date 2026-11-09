@@ -77,11 +77,19 @@ For every beat, fill the row in `references/logic-audit.md`. A blank cell is a b
 
 Write in plain language. Short scenes, longer messages. Each scene has one decision or one result. Put the artifacts in the thread, not in a separate scene: a brief image, a link card, a tapback.
 
-Target 45 to 55 beats for 2:30 to 3:00. Do not pad with filler. If the duration is short, add a real scene. A pause is only for reading time or a time skip, never for content.
+Target 45 to 65 messages for 2:30 to 3:00. Do not pad with filler. If the duration is short, add a real scene. A pause is only for reading time or a time skip, never for content.
 
 ### 5. Run the logic audit
 
 Apply every gate in `references/logic-audit.md`. One failed gate means rewrite that beat. Do not render until all gates pass.
+
+Then run the mechanical check:
+
+```bash
+bun scripts/check.ts /tmp/props.json
+```
+
+It validates ids, reaction order, weekday and date agreement, artifact fields, banned phrasing, and the duration estimate. It is a gate, not a substitute for the human read.
 
 ### 6. Score with independent agents
 
@@ -117,7 +125,10 @@ After rendering, extract frames at the start, every date divider, and the end. C
 - `references/logic-audit.md` — the 12 gates, the state ledger, and the three highest-leverage checks.
 - `references/agent-team.md` — the scoring roles, dimensions, and pass thresholds.
 - `references/production.md` — Keyloom props, timing math, render commands, and pitfalls.
-- `templates/props.example.json` — a ten-beat shape to copy, not a finished demo.
+- `references/positioning.md` — the competitive set, the three open positions, and the application alignment.
+- `examples/yc-demo.md` — the accepted 2:42 thread, scene by scene, with the 60-second cut.
+- `scripts/check.ts` — the pre-flight check.
+- `templates/props.example.json` — a ten-message shape to copy, not a finished demo.
 
 ## The deliverable
 
@@ -128,9 +139,23 @@ Two artifacts, always together:
 
 If the two disagree, the JSON is wrong. The script is the source of truth.
 
+## Cuts
+
+The 60-second cut uses the same thread and the same claim. Keep three scenes: the morning brief, the strongest save (the refund), and the close. Cut everything between them. Never write a separate short story.
+
+## What not to add
+
+- Voiceover, captions, or music. The thread is the caption.
+- A device frame, a keyboard, or dark mode.
+- A title card or a logo outro.
+- A second personal thread.
+- More than three reactions.
+- A metric nobody can check.
+- A competitor's name.
+
 ## Definition of done
 
-- 2:30 to 3:00, 45 to 55 beats.
+- 2:30 to 3:00, 45 to 65 messages.
 - Zero logic gates failed.
 - Cold viewer average at least 7.5, no dimension below 6.
 - Continuity audit 10/10.

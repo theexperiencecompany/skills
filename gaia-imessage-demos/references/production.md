@@ -72,7 +72,7 @@ Per-beat cost:
 - Reaction: `0.6 + 0.45`
 - Divider adds `0.35`
 
-Budget: 45 to 55 beats for 2:30 to 3:00. The accepted cut is 57 beats and 9743 frames, 162.4 seconds. Longer messages cost more, so check the computed duration, not the beat count.
+Budget: 45 to 65 messages for 2:30 to 3:00. The accepted cut is 61 messages across 79 beat entries, 9743 frames, 162.4 seconds. Longer messages cost more, so check the computed duration, not the beat count.
 
 Check the duration before rendering:
 

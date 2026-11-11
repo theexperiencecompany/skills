@@ -110,6 +110,26 @@ Divider: 12pt, `#8E8E93`.
 
 Receipts: `Delivered` then `Read <time>` 1.1 seconds after a user message.
 
+
+## Finding the latest asset
+
+The brief image is the one part that lives outside the repo, and the first screenshot you find is usually stale.
+
+1. Search the Conductor workspace and the GAIA worktrees for the newest Air Mail render:
+
+```bash
+find ~/conductor/workspaces/gaia ~/Projects/gaia -type f \
+  \( -iname "*airmail*" -o -iname "*postal*" \) \
+  \( -iname "*.png" -o -iname "*.webp" \) -print0 \
+  | xargs -0 ls -lt | head
+```
+
+2. Open the newest file, not the first. Check the design, not the filename.
+3. Crop to the envelope. Exclude the sidebar, the controls, and the cursor. A 948 by 900 crop works for the current layout.
+4. Read the postmark. Set the thread's first day, weekday, and time to match it. If the brief reads "Mon, 2 Nov 2026, 6:02 AM", the first divider is "Mon, Nov 2" and "6:02 AM".
+5. Save to `apps/remotion/public/imessage-thread/briefing/airmail.png` and set `aspect` to the crop width divided by height.
+6. Check the frame at 1080 wide. If the address or the date is unreadable, the crop is wrong.
+
 ## Render
 
 ```bash
